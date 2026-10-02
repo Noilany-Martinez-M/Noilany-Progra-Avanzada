@@ -1,0 +1,53 @@
+﻿@model IList<ufide.mascotas.Models.ViewModels.MascotaViewModel>
+
+@{
+    ViewBag.Title = "Mascotas registradas";
+}
+
+<main>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Mascotas registradas</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            @Html.ActionLink("Registrar mascota", "Registrar", "Home", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+
+        @if (Model.Any())
+        {
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre  |</th>
+                        <th>Especie  |</th>
+                        <th>Mes Nacimiento  |</th>
+                        <th>Anio Nacimiento</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.Count(); i++)
+                    {
+                        var mascota = Model[i];
+
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>@mascota.Nombre</td>
+                            <td>@mascota.TipoEspecie.ToString()</td>
+                            <td>@mascota.MesNacimiento.ToString()</td>
+                            <td>@mascota.AnioNacimiento.ToString()</td>
+                            <th>
+                                @Html.ActionLink("Ver Detalle", "Detalle", "Home", new { id = mascota.Id }, new { @class = "btn btn-default btn-sx" })
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info">No hay mascotas registradas."</div>
+        }
+</main>
